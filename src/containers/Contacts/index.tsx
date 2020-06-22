@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
-import { Wrapper, Card } from './styles';
+import { Wrapper, Card, ContactList } from './styles';
 
 import CONTACTS from '../../list-contacts';
 
 import ContactItem from '../../components/ContactItem';
+import AddContentForm from '../../components/AddContentForm';
+
+import Contact from '../../models/Contact';
 
 const Contacts: React.FC = () => {
+    const [isAddindContact, setAddingContact] = useState(false);
 
     const [contacts, setContacts] = useState(CONTACTS);
 
@@ -16,16 +20,30 @@ const Contacts: React.FC = () => {
         );
     }
 
+    const AddContact = (contact: Contact) => {
+        setContacts(contacts => contacts.concat(contact));
+        setAddingContact(false);
+    };
+
     return (
         <Wrapper>
-            <Card />
-            <ul>
-                {
-                    contacts.map(contact => (
-                        <ContactItem key={contact.id} contact={contact} onRemoveContact={RemoveContact} />
-                    ))
-                }
-            </ul>
+            <Card>
+                <header>
+                    {
+                        isAddindContact && (
+                            <AddContentForm onAddContact={AddContact}/>
+                        )
+                    }
+                    <button onClick={() => setAddingContact(true)}>Adicionar Contato</button>
+                </header>
+                <ContactList>
+                    {
+                        contacts.map(contact => (
+                            <ContactItem key={contact.id} contact={contact} onRemoveContact={RemoveContact} />
+                        ))
+                    }
+                </ContactList>
+            </Card>
         </Wrapper>
     )
 };
