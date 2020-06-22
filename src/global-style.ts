@@ -7,6 +7,7 @@ export const Styles = createGlobalStyle`
     }
     html {
         font-size: 16px;
+        font-family: sans-serif;
     }
 
     html, body, #root {

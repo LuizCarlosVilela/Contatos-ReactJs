@@ -1,3 +1,7 @@
+/**
+ * Tipo que representa o objeto contato
+ */
+
 type Contact ={
     id: string,
     name: string,
